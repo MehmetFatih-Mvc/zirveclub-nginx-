@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ZirveClub Sistemi
 
 Modern görev tabanlı gelişim sistemi.
@@ -49,3 +50,6 @@ git push heroku main
 ## Lisans
 
 MIT 
+=======
+# zirveclub-nginx-
+>>>>>>> cb195d81c4550f42970b82840ee717fd1f236786
