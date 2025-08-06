@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZirveClub Sistemi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Authentication Section -->
+        <div id="authSection" class="auth-section">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+                    <button class="auth-tab" data-tab="register">Kayıt Ol</button>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginUsername">Kullanıcı Adı:</label>
+                        <input type="text" id="loginUsername" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Şifre:</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                    </button>
+                </form>
+                
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="registerUsername">Kullanıcı Adı:</label>
+                        <input type="text" id="registerUsername" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Şifre:</label>
+                        <input type="password" id="registerPassword" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Şifre Tekrar:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <i class="fas fa-user-plus"></i> Kayıt Ol
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Application -->
+        <div id="mainApp" class="main-app" style="display: none;">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-coins"></i>
+                        <h1>ZirveClub Sistemi</h1>
+                    </div>
+                    <nav class="navbar">
+                        <ul class="nav-menu">
+                            <li class="nav-item">
+                                <button class="nav-btn active" data-page="main">
+                                    <i class="fas fa-home"></i>
+                                    <span>Ana Sayfa</span>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-btn" data-page="deposit">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Para Yatır</span>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-btn" data-page="withdraw">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Para Çek</span>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-btn" data-page="withdrawals">
+                                    <i class="fas fa-history"></i>
+                                    <span>Çekme Talepleri</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="user-info">
+                        <div class="user-details">
+                            <div class="user-number" id="userNumberDisplay">#00000000000</div>
+                            <span id="userDisplayName">Kullanıcı</span>
+                        </div>
+                        <button id="logoutBtn" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Çıkış
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Main Page -->
+                <div id="mainPage" class="page-content active">
+                    <!-- Action Section -->
+                    <section class="action-section">
+                        <div class="action-buttons">
+                            <button id="receiveOrderBtn" class="action-btn receive-btn">
+                                <i class="fas fa-download"></i>
+                                <span>Sipariş Al</span>
+                                <small>1 tuşu</small>
+                            </button>
+                            <button id="giveOrderBtn" class="action-btn give-btn">
+                                <i class="fas fa-upload"></i>
+                                <span>Sipariş Ver</span>
+                                <small>2 tuşu</small>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Stats Section -->
+                    <section class="stats-section">
+                        <div class="stats-header" style="text-align:center; margin-bottom:10px; font-weight:bold; color:#f8f8f8; font-size:1.1rem;">
+                            1 POZI = 1 USD
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 id="userBalance">0 POZI</h3>
+                                    <p>Bakiye</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 id="totalReceived">0</h3>
+                                    <p>Alınan Sipariş</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-upload"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 id="totalGiven">0</h3>
+                                    <p>Verilen Sipariş</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 id="completedTasks">0/25</h3>
+                                    <p>Tamamlanan Görev</p>
+                                    <div class="progress-bar">
+                                        <div id="taskProgress" class="progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 id="poziAmountStatus">Belirlenmemiş</h3>
+                                    <p>POZI Miktarı</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 id="paymentStatus">Belirlenmemiş</h3>
+                                    <p>Ödeme Durumu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tasks Section -->
+                    <section class="tasks-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-list-check"></i> Görevler</h2>
+                            <p>25 görevden <span id="completedTasksHeader">0</span> tanesi tamamlandı</p>
+                        </div>
+                        <div id="tasksContainer" class="tasks-container">
+                        <!-- Tasks will be loaded here -->
+                    </div>
+                </section>
+                </div>
+
+                <!-- Deposit Page -->
+                <div id="depositPage" class="page-content">
+                    <section class="deposit-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-credit-card"></i> Para Yatırma</h2>
+                            <p>Ödeme dekontunuzu yükleyin</p>
+                        </div>
+                        
+                        <div class="deposit-content">
+                            <div class="btc-wallet">
+                                <h3><i class="fab fa-bitcoin"></i> BTC Cüzdan Adresi</h3>
+                                <div class="wallet-address">
+                                    <span id="btcAddress">Yükleniyor...</span>
+                                    <button id="copyBTCBtn" class="copy-btn">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <p class="wallet-info">Bakiye yükleme işlemleri sadece bu adres üzerinden yapılabilir.</p>
+                            </div>
+                            
+                            <div class="receipt-form">
+                                <h3><i class="fas fa-upload"></i> Dekont Yükle</h3>
+                                <form id="receiptForm">
+                                    <div class="form-group">
+                                        <label for="receiptAmount">Ödeme Miktarı (USD):</label>
+                                        <input type="number" id="receiptAmount" name="amount" min="1" step="0.01" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="receiptDescription">Açıklama:</label>
+                                        <input type="text" id="receiptDescription" name="description" placeholder="Ödeme açıklaması">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="receiptFile">Dekont Dosyası:</label>
+                                        <input type="file" id="receiptFile" name="receiptFile" accept="image/*,.pdf" required>
+                                    </div>
+                                    <button type="submit" class="receipt-btn">
+                                        <i class="fas fa-upload"></i> Dekont Yükle
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <div class="receipt-history">
+                                <h3><i class="fas fa-history"></i> Dekont Geçmişi</h3>
+                                <div id="receiptHistory" class="receipt-list">
+                                    <!-- Receipt history will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Withdraw Page -->
+                <div id="withdrawPage" class="page-content">
+                    <section class="withdraw-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-money-bill-wave"></i> Para Çekme</h2>
+                            <p>Cüzdan adresinizi girin ve para çekin</p>
+                        </div>
+                        
+                        <div class="withdraw-content">
+                            <div class="withdrawal-form">
+                                <h3><i class="fas fa-money-bill-wave"></i> Para Çekme</h3>
+                                <form id="withdrawalForm">
+                                    <div class="form-group">
+                                        <label for="withdrawalAmount">Miktar (POZI):</label>
+                                        <input type="number" id="withdrawalAmount" name="amount" min="100" required>
+                                        <small>Minimum çekim miktarı: 100 POZI</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="walletAddress">Cüzdan Adresi:</label>
+                                        <input type="text" id="walletAddress" name="walletAddress" required placeholder="TRC20, ERC20, BEP20 cüzdan adresi">
+                                    </div>
+                                    <button type="submit" class="withdrawal-btn">
+                                        <i class="fas fa-paper-plane"></i> Para Çekme Talebi Oluştur
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Withdrawals History Page -->
+                <div id="withdrawalsPage" class="page-content">
+                    <section class="withdrawals-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-history"></i> Çekme Talepleri</h2>
+                            <p>Para çekme taleplerinizin durumunu takip edin</p>
+                        </div>
+                        
+                        <div class="withdrawals-content">
+                            <div class="withdrawals-history">
+                                <h3><i class="fas fa-list"></i> Talepleriniz</h3>
+                                <div id="withdrawalsHistory" class="withdrawals-list">
+                                    <!-- Withdrawals history will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- Notification Container -->
+        <div id="notificationContainer" class="notification-container"></div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Yükleniyor...</p>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
