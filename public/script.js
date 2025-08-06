@@ -14,6 +14,10 @@ const receiveOrderBtn = document.getElementById('receiveOrderBtn');
 const giveOrderBtn = document.getElementById('giveOrderBtn');
 const withdrawalForm = document.getElementById('withdrawalForm');
 
+// Hamburger menu toggle
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navMenu = document.querySelector('.nav-menu');
+
 // Initialize application
 document.addEventListener('DOMContentLoaded', async () => {
     // Check for existing session
@@ -840,3 +844,18 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style); 
+
+// Hamburger menu toggle
+if (hamburgerBtn && navMenu) {
+    hamburgerBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+        document.body.classList.toggle('nav-open');
+    });
+    // Menüden bir linke tıklanınca menüyü kapat
+    navMenu.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            document.body.classList.remove('nav-open');
+        });
+    });
+} 
