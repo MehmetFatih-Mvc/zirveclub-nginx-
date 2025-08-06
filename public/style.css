@@ -1401,3 +1401,42 @@ body {
     }
 }
 /* --- END MODERN RESPONSIVE DESIGN --- */ 
+
+@media (max-width: 768px) {
+    .user-info {
+        display: none !important;
+    }
+    .nav-user-info-mobile {
+        display: block;
+        border-bottom: 1px solid #eee;
+        padding: 12px 0 8px 0;
+        background: #f8f9fa;
+        text-align: center;
+    }
+    .user-info-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+    .user-info-mobile .user-number {
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+    }
+    .user-info-mobile #userDisplayNameMobile {
+        font-size: 1rem;
+        margin-bottom: 2px;
+    }
+    .user-info-mobile .logout-btn {
+        width: 100%;
+        padding: 8px 0;
+        font-size: 1rem;
+        border-radius: 5px;
+        margin-top: 4px;
+    }
+}
+@media (min-width: 769px) {
+    .nav-user-info-mobile {
+        display: none !important;
+    }
+} 

@@ -859,3 +859,28 @@ if (hamburgerBtn && navMenu) {
         });
     });
 } 
+
+// Hamburger menu user info sync
+function syncMobileUserInfo() {
+    const userNumber = document.getElementById('userNumberDisplay');
+    const userNumberMobile = document.getElementById('userNumberDisplayMobile');
+    const userDisplayName = document.getElementById('userDisplayName');
+    const userDisplayNameMobile = document.getElementById('userDisplayNameMobile');
+    if (userNumber && userNumberMobile) userNumberMobile.textContent = userNumber.textContent;
+    if (userDisplayName && userDisplayNameMobile) userDisplayNameMobile.textContent = userDisplayName.textContent;
+}
+
+// updateUI fonksiyonunun sonunda çağır
+if (typeof updateUI === 'function') {
+    const origUpdateUI = updateUI;
+    window.updateUI = function() {
+        origUpdateUI.apply(this, arguments);
+        syncMobileUserInfo();
+    };
+}
+
+// Logout butonunu mobilde de çalıştır
+const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+if (logoutBtnMobile) {
+    logoutBtnMobile.addEventListener('click', handleLogout);
+} 
